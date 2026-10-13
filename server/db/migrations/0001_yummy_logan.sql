@@ -1,0 +1,1 @@
+CREATE INDEX "purchases_device_created_idx" ON "purchases" USING btree ("device_id","created_at");

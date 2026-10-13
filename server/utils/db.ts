@@ -10,9 +10,9 @@ function createDb(url: string) {
 
 export function useDb() {
   if (!instance) {
-    const url = process.env.DATABASE_URL
-    if (!url) throw createError({ statusCode: 500, statusMessage: 'DATABASE_URL is not set' })
-    instance = createDb(url)
+    const { databaseUrl } = useRuntimeConfig()
+    if (!databaseUrl) throw createError({ statusCode: 500, statusMessage: 'NUXT_DATABASE_URL is not set' })
+    instance = createDb(databaseUrl)
   }
   return instance
 }

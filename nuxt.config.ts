@@ -23,6 +23,10 @@ export default defineNuxtConfig({
     ],
   },
 
+  runtimeConfig: {
+    databaseUrl: '',
+  },
+
   typescript: {
     strict: true,
   },
