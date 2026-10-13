@@ -1,0 +1,62 @@
+.text-display {
+  font-size: 28px;
+  font-weight: 900;
+  line-height: 1.364;
+}
+
+.text-heading {
+  font-size: 20px;
+  font-weight: 900;
+  line-height: 1.364;
+}
+
+.text-title {
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.364;
+}
+
+.text-price {
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 1.364;
+}
+
+.text-body {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.364;
+}
+
+.text-link {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.364;
+}
+
+.text-caption {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.364;
+}
+
+.text-badge {
+  font-size: 12px;
+  font-weight: 900;
+  line-height: 1.364;
+}
+
+.text-footnote {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.364;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  white-space: nowrap;
+  clip-path: inset(50%);
+}

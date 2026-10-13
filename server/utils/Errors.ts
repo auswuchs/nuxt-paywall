@@ -13,7 +13,7 @@ export function apiError(statusCode: number, code: ApiErrorCode, message: string
 
 export function parseOrFail<T>(schema: z.ZodType<T>, input: unknown): T {
   const result = schema.safeParse(input)
-  if (!result.success) throw apiError(400, 'validation_failed', 'Request validation failed')
+  if (!result.success) throw apiError(400, ApiErrorCode.ValidationFailed, 'Request validation failed')
 
   return result.data
 }
@@ -23,7 +23,7 @@ export async function readBodyOrFail<T>(event: H3Event, schema: z.ZodType<T>): P
   try {
     body = await readBody(event)
   } catch {
-    throw apiError(400, 'validation_failed', 'Malformed JSON body')
+    throw apiError(400, ApiErrorCode.ValidationFailed, 'Malformed JSON body')
   }
 
   return parseOrFail(schema, body)

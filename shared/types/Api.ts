@@ -1,9 +1,14 @@
-export type ApiErrorCode
-  = | 'validation_failed'
-    | 'offers_unavailable'
-    | 'entitlement_not_found'
-    | 'internal'
+export enum ApiErrorCode {
+  ValidationFailed = 'validation_failed',
+  OffersUnavailable = 'offers_unavailable',
+  EntitlementNotFound = 'entitlement_not_found',
+  Internal = 'internal',
+}
 
 export interface ApiErrorData {
   code: ApiErrorCode
+}
+
+export enum SimulateMode {
+  Error = 'error',
 }

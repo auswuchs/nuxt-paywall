@@ -1,4 +1,7 @@
-export type OfferId = 'year' | 'month'
+export enum OfferId {
+  Year = 'year',
+  Month = 'month',
+}
 
 export interface Offer {
   id: OfferId
@@ -8,6 +11,11 @@ export interface Offer {
   note: string
   discountPercent?: number
   recommended?: boolean
+}
+
+export interface PurchaseRequest {
+  offerId: OfferId
+  deviceId: string
 }
 
 export interface Entitlement {

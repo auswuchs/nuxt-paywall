@@ -12,7 +12,7 @@ function createDb(url: string) {
 export function getDb() {
   if (!instance) {
     const { databaseUrl } = useRuntimeConfig()
-    if (!databaseUrl) throw apiError(500, 'internal', 'NUXT_DATABASE_URL is not set')
+    if (!databaseUrl) throw apiError(500, ApiErrorCode.Internal, 'NUXT_DATABASE_URL is not set')
 
     instance = createDb(databaseUrl)
   }

@@ -2,7 +2,7 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
   modules: ['@nuxt/eslint', '@nuxt/fonts'],
-  css: ['~/assets/css/tokens.css', '~/assets/css/base.css'],
+  css: ['~/assets/css/tokens.css', '~/assets/css/base.css', '~/assets/css/typography.css'],
 
   app: {
     head: {
@@ -18,8 +18,7 @@ export default defineNuxtConfig({
 
   fonts: {
     families: [
-      { name: 'Nunito', provider: 'google', weights: [500, 600, 700, 800, 900], subsets: ['cyrillic', 'latin'] },
-      { name: 'Inter', provider: 'google', weights: [700, 800], subsets: ['latin'] },
+      { name: 'Nunito', provider: 'google', weights: [500, 600, 700, 800, 900], subsets: ['cyrillic', 'cyrillic-ext', 'latin', 'latin-ext'] },
     ],
   },
 
