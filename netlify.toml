@@ -1,0 +1,7 @@
+[build]
+  # Миграции до сборки: если они упадут, деплой не случится и новый код не попадёт на старую схему.
+  command = "pnpm db:migrate && pnpm build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"

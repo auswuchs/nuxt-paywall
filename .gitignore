@@ -26,3 +26,4 @@ logs
 .eslintcache
 .stylelintcache
 .playwright-cli
+.netlify
