@@ -113,12 +113,12 @@ drizzle/                     — миграции
 
 - [x] 1. ТЗ, выбор стека, дизайн-бриф (impeccable), `PRODUCT.md`.
 - [x] 2. Макет в Figma: Default / Loading / Error / Success, токены в Variables, именованные слои.
-- [ ] 3. Каркас: `nuxi init` (Nuxt 4), TypeScript strict, ESLint, `@nuxt/fonts`, git-репозиторий.
-- [ ] 4. БД:
+- [x] 3. Каркас: `nuxi init` (Nuxt 4), TypeScript strict, ESLint, `@nuxt/fonts`, git-репозиторий.
+- [x] 4. БД:
   - создать Neon-проект;
   - описать схему Drizzle, применить миграцию;
-  - положить `DATABASE_URL` в `.env` и `.env.example`.
-- [ ] 5. Server routes: offers, purchase, latest + валидация, проверка через curl.
+  - положить `NUXT_DATABASE_URL` в `.env` и `.env.example`.
+- [x] 5. Server routes: offers, purchase, latest + валидация, проверка через curl.
 - [ ] 6. Вёрстка:
   - `tokens.css` из Figma Variables;
   - компоненты;
@@ -129,7 +129,7 @@ drizzle/                     — миграции
   - сравнение с экспортом фрейма из Figma (Framelink);
   - правки до совпадения.
 - [ ] 8. Деплой на Netlify:
-  - env `DATABASE_URL`;
+  - env `NUXT_DATABASE_URL`;
   - проверить покупку на проде и запись в БД;
   - проверить, открывается ли `*.netlify.app` из РФ.
 - [ ] 9. README и финальная проверка, отправка ссылок.
