@@ -3,7 +3,7 @@
 Мобильный paywall для условной детской игры: экран открывается во встроенном webview, пользователь выбирает тариф и оформляет тестовую покупку. Покупка проходит через server route и записывается в Postgres.
 
 - Макет: [Figma](https://www.figma.com/design/esB0mE5BV5EXoOnKiu4hy0/Nuxt-Paywall?node-id=8-111) — фреймы Default / Loading / Error / Success, токены в Variables
-- Прод: TODO ссылка на Netlify
+- Прод: [nuxt-paywall-auswuchs.netlify.app](https://nuxt-paywall-auswuchs.netlify.app)
 - Репозиторий: [github.com/auswuchs/nuxt-paywall](https://github.com/auswuchs/nuxt-paywall)
 
 ## Запуск локально
