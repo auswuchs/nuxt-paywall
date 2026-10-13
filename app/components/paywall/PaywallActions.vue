@@ -25,6 +25,7 @@ const emit = defineEmits<Emits>()
     >
       {{ ctaLabel }}
     </PaywallPrimaryButton>
+
     <button
       v-if="showRestore"
       class="restore text-link"
@@ -34,6 +35,7 @@ const emit = defineEmits<Emits>()
     >
       {{ restorePending ? 'Проверяем покупки…' : 'Восстановить покупки' }}
     </button>
+
     <p
       class="note text-footnote"
       :class="{ error: noteIsError }"

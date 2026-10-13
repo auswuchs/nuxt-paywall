@@ -27,10 +27,12 @@ const price = computed(() => formatPrice(props.offer.price))
       :checked="selected"
       @change="emit('select', offer.id)"
     />
+
     <span
       class="radio"
       aria-hidden="true"
     />
+
     <span class="info">
       <span class="title-row">
         <span class="text-title">{{ offer.title }}</span>
@@ -43,6 +45,7 @@ const price = computed(() => formatPrice(props.offer.price))
       </span>
       <span class="note text-caption">{{ offer.note }}</span>
     </span>
+
     <span class="text-price">{{ price }}</span>
   </label>
 </template>

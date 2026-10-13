@@ -14,9 +14,11 @@ defineProps<Props>()
     <span class="icon">
       <IconCheckLarge class="check" />
     </span>
+
     <p class="text-display">
       Готово!
     </p>
+
     <p
       v-if="offerTitle"
       class="details text-body"

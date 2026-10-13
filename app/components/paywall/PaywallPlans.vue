@@ -17,6 +17,7 @@ const emit = defineEmits<Emits>()
     <legend class="visually-hidden">
       Выберите тариф
     </legend>
+
     <PaywallPlanCard
       v-for="offer in offers"
       :key="offer.id"

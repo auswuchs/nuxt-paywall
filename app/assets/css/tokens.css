@@ -30,5 +30,6 @@
   --space-16: 16px;
   --space-20: 20px;
   --space-24: 24px;
+  --layout-max-width: 430px;
   --font-text: 'Nunito', system-ui, sans-serif;
 }

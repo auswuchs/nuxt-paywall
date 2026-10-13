@@ -20,8 +20,16 @@ export function usePaywall() {
     default: () => [],
   })
 
+  const {
+    data: entitlement,
+    status: entitlementStatus,
+  } = useAsyncData('entitlement', fetchActiveEntitlement, {
+    server: false,
+    lazy: true,
+    default: () => null,
+  })
+
   const pickedOfferId = ref<OfferId>()
-  const entitlement = ref<Entitlement>()
   const purchaseStatus = ref(PurchaseStatus.Idle)
   const restoreStatus = ref(RestoreStatus.Idle)
 
@@ -33,6 +41,8 @@ export function usePaywall() {
 
   const view = computed(() => {
     if (entitlement.value) return PaywallView.Success
+    // Пока не знаем, куплен ли доступ, тарифы не показываем — иначе мелькнёт paywall перед экраном успеха.
+    if (entitlementStatus.value === 'idle' || entitlementStatus.value === 'pending') return PaywallView.Loading
     if (status.value === 'error') return PaywallView.Error
     if (status.value === 'success') return PaywallView.Ready
     return PaywallView.Loading
@@ -41,6 +51,15 @@ export function usePaywall() {
   const purchasedOffer = computed(() =>
     data.value.find((offer) => offer.id === entitlement.value?.offerId),
   )
+
+  async function fetchActiveEntitlement() {
+    try {
+      return await $api.getEntitlement(deviceId.value)
+    } catch (error) {
+      if (getApiErrorCode(error) === ApiErrorCode.EntitlementNotFound) return null
+      throw error
+    }
+  }
 
   function selectOffer(id: OfferId) {
     pickedOfferId.value = id
@@ -68,12 +87,10 @@ export function usePaywall() {
 
     restoreStatus.value = RestoreStatus.Pending
     try {
-      entitlement.value = await $api.getEntitlement(deviceId.value)
-      restoreStatus.value = RestoreStatus.Idle
-    } catch (error) {
-      restoreStatus.value = getApiErrorCode(error) === ApiErrorCode.EntitlementNotFound
-        ? RestoreStatus.NotFound
-        : RestoreStatus.Failed
+      entitlement.value = await fetchActiveEntitlement()
+      restoreStatus.value = entitlement.value ? RestoreStatus.Idle : RestoreStatus.NotFound
+    } catch {
+      restoreStatus.value = RestoreStatus.Failed
     }
   }
 

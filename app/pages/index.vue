@@ -68,6 +68,7 @@ function onCta() {
           v-if="isSuccess"
           :offer-title="purchasedOffer?.title"
         />
+
         <template v-else>
           <PaywallBenefits />
           <PaywallPlansSkeleton v-if="view === PaywallView.Loading" />
