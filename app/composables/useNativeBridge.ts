@@ -4,8 +4,16 @@ type PaywallEvent
 
 declare global {
   interface Window {
-    webkit?: { messageHandlers?: { paywall?: { postMessage: (message: PaywallEvent) => void } } }
-    Android?: { onPaywallEvent?: (message: string) => void }
+    webkit?: {
+      messageHandlers?: {
+        paywall?: {
+          postMessage: (message: PaywallEvent) => void
+        }
+      }
+    }
+    Android?: {
+      onPaywallEvent?: (message: string) => void
+    }
   }
 }
 

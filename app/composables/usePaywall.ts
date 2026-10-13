@@ -6,38 +6,40 @@ export function usePaywall() {
   const deviceId = useDeviceId()
   const { notifyPurchased } = useNativeBridge()
 
-  const simulate = typeof route.query.simulate === 'string' ? route.query.simulate : undefined
+  const simulate = typeof route.query.simulate === 'string'
+    ? route.query.simulate
+    : undefined
 
   const {
-    data: offers,
-    status: offersStatus,
-    refresh: reloadOffers,
+    data,
+    status,
+    refresh,
   } = useAsyncData('offers', () => $api.getOffers({ simulate }), {
     server: false,
     lazy: true,
     default: () => [],
   })
 
-  const pickedOfferId = shallowRef<OfferId>()
-  const entitlement = shallowRef<Entitlement>()
-  const purchaseStatus = shallowRef(PurchaseStatus.Idle)
-  const restoreStatus = shallowRef(RestoreStatus.Idle)
+  const pickedOfferId = ref<OfferId>()
+  const entitlement = ref<Entitlement>()
+  const purchaseStatus = ref(PurchaseStatus.Idle)
+  const restoreStatus = ref(RestoreStatus.Idle)
 
-  const selectedOffer = computed(() =>
-    offers.value.find((offer) => offer.id === pickedOfferId.value)
-    ?? offers.value.find((offer) => offer.recommended)
-    ?? offers.value[0],
-  )
+  const selectedOffer = computed(() => {
+    return data.value.find((offer) => offer.id === pickedOfferId.value)
+      ?? data.value.find((offer) => offer.recommended)
+      ?? data.value[0]
+  })
 
   const view = computed(() => {
     if (entitlement.value) return PaywallView.Success
-    if (offersStatus.value === 'error') return PaywallView.Error
-    if (offersStatus.value === 'success') return PaywallView.Ready
+    if (status.value === 'error') return PaywallView.Error
+    if (status.value === 'success') return PaywallView.Ready
     return PaywallView.Loading
   })
 
   const purchasedOffer = computed(() =>
-    offers.value.find((offer) => offer.id === entitlement.value?.offerId),
+    data.value.find((offer) => offer.id === entitlement.value?.offerId),
   )
 
   function selectOffer(id: OfferId) {
@@ -76,14 +78,14 @@ export function usePaywall() {
   }
 
   return {
-    offers,
+    offers: data,
+    reloadOffers: refresh,
     view,
     selectedOffer,
     purchasedOffer,
     purchaseStatus: readonly(purchaseStatus),
     restoreStatus: readonly(restoreStatus),
     selectOffer,
-    reloadOffers,
     purchase,
     restore,
   }
