@@ -17,7 +17,7 @@
 
 ## Дизайн (готов)
 
-Figma: https://www.figma.com/design/esB0mE5BV5EXoOnKiu4hy0/Untitled?node-id=8-111
+Figma: https://www.figma.com/design/esB0mE5BV5EXoOnKiu4hy0/Nuxt-Paywall?node-id=8-111
 
 Фреймы 390×844:
 - `Paywall / Default` — основной экран;

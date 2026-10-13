@@ -12,7 +12,7 @@ defineProps<Props>()
     role="status"
   >
     <span class="icon">
-      <IconCheckLarge class="check" />
+      <IconCheckLarge />
     </span>
 
     <p class="text-display">
@@ -51,11 +51,6 @@ defineProps<Props>()
   color: var(--color-green);
   background: var(--color-green-soft);
   border-radius: var(--radius-full);
-}
-
-/* В макете галочка — глиф шрифта, он сидит ниже геометрического центра. */
-.check {
-  transform: translateY(1px);
 }
 
 .details {

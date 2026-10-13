@@ -20,7 +20,7 @@ const emit = defineEmits<Emits>()
         aria-label="Закрыть"
         @click="emit('close')"
       >
-        <IconClose class="close-icon" />
+        <IconClose />
       </button>
     </div>
 
@@ -61,11 +61,6 @@ const emit = defineEmits<Emits>()
   color: var(--color-ink);
   background: var(--color-overlay-white);
   border-radius: var(--radius-full);
-}
-
-/* В макете крестик — глиф шрифта, он сидит на 1px ниже геометрического центра. */
-.close-icon {
-  transform: translateY(1px);
 }
 
 .heading {
