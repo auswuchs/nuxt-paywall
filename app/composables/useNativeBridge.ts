@@ -14,20 +14,14 @@ export function useNativeBridge() {
     const iosHandler = window.webkit?.messageHandlers?.paywall
     if (iosHandler) {
       iosHandler.postMessage(event)
-      return true
+      return
     }
 
-    if (window.Android?.onPaywallEvent) {
-      window.Android.onPaywallEvent(JSON.stringify(event))
-      return true
-    }
-
-    return false
+    window.Android?.onPaywallEvent?.(JSON.stringify(event))
   }
 
   function close() {
-    // Вне приложения моста нет — ведём себя как обычная страница.
-    if (!send({ type: 'close' }) && window.history.length > 1) window.history.back()
+    send({ type: 'close' })
   }
 
   function notifyPurchased(entitlement: Entitlement) {
