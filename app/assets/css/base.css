@@ -8,7 +8,7 @@
 html {
   -webkit-tap-highlight-color: transparent;
 
-  /* WKWebView on iOS still only honours the prefixed property */
+  /* WKWebView на iOS понимает только префиксное свойство */
   /* stylelint-disable-next-line property-no-vendor-prefix */
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;

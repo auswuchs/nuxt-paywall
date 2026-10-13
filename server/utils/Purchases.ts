@@ -16,7 +16,7 @@ export async function createPurchase(
   deviceId: string): Promise<Entitlement> {
   const offer = findOffer(offerId)
 
-  // Both timestamps come from the DB clock so expiry is exactly createdAt + duration.
+  // Обе даты считает БД по своим часам, чтобы срок был ровно createdAt + длительность.
   const [purchase] = await useDb()
     .insert(purchases)
     .values({

@@ -19,7 +19,7 @@ export default {
 
     'scss/no-duplicate-dollar-variables': true,
 
-    // Positioning → Display/Flex → Box model → Typography → Visual → Animation → Misc
+    // Позиционирование → Display/Flex → Box model → Типографика → Визуал → Анимации → Прочее
     'order/properties-order': [[
       'position', 'inset', 'top', 'right', 'bottom', 'left', 'z-index',
 

@@ -9,7 +9,7 @@ export default defineNuxtConfig({
       htmlAttrs: { lang: 'ru' },
       title: 'Открой все уровни',
       meta: [
-        // viewport-fit=cover lets the page draw under the notch so safe-area insets become meaningful
+        // viewport-fit=cover — без него env(safe-area-inset-*) всегда 0 и отступы под чёлку не работают
         { name: 'viewport', content: 'width=device-width, initial-scale=1, viewport-fit=cover' },
         { name: 'theme-color', content: '#FFC531' },
       ],
