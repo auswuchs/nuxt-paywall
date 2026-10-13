@@ -73,7 +73,7 @@ drizzle/                     — миграции
   - проверяем, что `offerId` существует;
   - пишем строку в БД, срок считает сама БД (`now() + durationDays`); возвращаем `Entitlement` `{ purchaseId, offerId, purchasedAt, expiresAt }` со статусом 201;
   - на невалидные данные отвечаем 400.
-- `GET /api/entitlement?deviceId=…` → активная (не истёкшая) покупка устройства или 404 `entitlement_not_found`.
+- `GET /api/entitlement?deviceId=…` → `{ entitlement }`: активная (не истёкшая) покупка устройства или `null` (200 — «доступа нет» не ошибка).
 - Ошибки всегда в одном формате: `{ statusCode, statusMessage, data: { code } }`; `code` типизирован (`ApiErrorCode`).
 
 ### БД

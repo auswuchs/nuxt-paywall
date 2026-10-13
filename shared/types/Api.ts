@@ -1,7 +1,6 @@
 export enum ApiErrorCode {
   ValidationFailed = 'validation_failed',
   OffersUnavailable = 'offers_unavailable',
-  EntitlementNotFound = 'entitlement_not_found',
   Internal = 'internal',
 }
 

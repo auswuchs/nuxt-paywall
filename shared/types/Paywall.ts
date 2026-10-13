@@ -24,3 +24,7 @@ export interface Entitlement {
   purchasedAt: string
   expiresAt: string
 }
+
+export interface EntitlementResponse {
+  entitlement: Entitlement | null
+}

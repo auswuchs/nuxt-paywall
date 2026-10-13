@@ -9,7 +9,7 @@ export function createPaywallApi(fetcher: typeof $fetch) {
     },
 
     getEntitlement(deviceId: string) {
-      return fetcher<Entitlement>('/api/entitlement', { query: { deviceId } })
+      return fetcher<EntitlementResponse>('/api/entitlement', { query: { deviceId } })
     },
   }
 }

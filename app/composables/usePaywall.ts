@@ -53,12 +53,8 @@ export function usePaywall() {
   )
 
   async function fetchActiveEntitlement() {
-    try {
-      return await $api.getEntitlement(deviceId.value)
-    } catch (error) {
-      if (getApiErrorCode(error) === ApiErrorCode.EntitlementNotFound) return null
-      throw error
-    }
+    const response = await $api.getEntitlement(deviceId.value)
+    return response.entitlement
   }
 
   function selectOffer(id: OfferId) {
