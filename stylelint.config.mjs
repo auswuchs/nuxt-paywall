@@ -1,5 +1,6 @@
 export default {
   extends: ['stylelint-config-standard-scss'],
+  ignoreFiles: ['.nuxt/**', '.output/**', 'dist/**', '.netlify/**', 'node_modules/**'],
   plugins: ['@stylistic/stylelint-plugin', 'stylelint-order'],
   rules: {
     '@stylistic/indentation': 2,
