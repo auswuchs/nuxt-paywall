@@ -26,22 +26,17 @@ pnpm dev                    # http://localhost:3000
 
 ## Где что лежит
 
-- `app/` — фронтенд: `pages/index.vue` собирает экран, `components/paywall/*` — секции, `composables/usePaywall.ts` — состояние экрана (тарифы, выбор, покупка, восстановление), `api/PaywallApi.ts` + `plugins/api.ts` — слой `$api` над `$fetch`.
-- `server/api/` — server routes: `GET /api/offers`, `POST /api/purchase`, `GET /api/entitlement?deviceId=…`.
-- `server/utils/` — тарифы, zod-валидация, единый формат ошибок `{ data: { code } }`, доступ к БД (`Purchases.ts`, `Database.ts`).
-- `server/db/` — схема Drizzle и SQL-миграции. Таблица `purchases`: `offer_id`, `price` (снимок цены), `device_id`, `created_at`, `expires_at`.
-- `shared/types/` — типы и enum, общие для фронта и сервера.
+- Фронтенд — `app/`: страница `pages/index.vue`, компоненты `components/paywall/`, логика экрана `composables/usePaywall.ts`, API-слой `api/PaywallApi.ts`.
+- Server routes — `server/api/`: `GET /api/offers`, `POST /api/purchase`, `GET /api/entitlement`.
+- БД — `server/db/` (схема Drizzle и миграции) и `server/utils/Purchases.ts` (запросы).
 
 ## Деплой и БД
 
-- **Netlify.** Nuxt собирается с пресетом Netlify, server routes становятся Netlify Functions, деплой из GitHub. Миграции запускаются перед сборкой (`netlify.toml`), поэтому код не попадёт на старую схему.
-- **Neon Postgres + Drizzle.** Бесплатный serverless Postgres. Драйвер `neon-http` ходит в базу по HTTPS, без TCP-пула: в serverless-функциях держать пул негде. Drizzle даёт типизированную схему и миграции.
+**Netlify**: server routes становятся Netlify Functions, деплой из GitHub, миграции запускаются перед сборкой. **Neon Postgres + Drizzle**: бесплатный serverless Postgres с HTTP-драйвером, который подходит для функций без постоянных соединений, и типизированная схема с миграциями.
 
 ## AI-инструменты и что проверено руками
 
-Использовался Claude Code: дизайн-бриф и макет в Figma (через MCP-плагин Talk to Figma), каркас, server routes, вёрстка.
-
-Сам проверял и правил: архитектуру серверного слоя (вынесен store, типизированные ошибки, endpoint активного доступа вместо «последней покупки»), API-слой `$api`, enum вместо строковых литералов, типизацию props/emits; прошёл все сценарии в браузере, включая Offline и `simulate=error`; проверил записи покупок в Neon; разобрал миграции и SQL, который генерирует Drizzle. Совпадение с макетом сверено попиксельно на 390×844: Default ≈ 98%, Error ≈ 98.4%, Success ≈ 99.3%. Остаток — разница сглаживания шрифта между Figma и Chrome.
+Claude Code — макет в Figma (через MCP), каркас, server routes, вёрстка. Сам ревьюил и правил архитектуру сервера и API-слоя, прошёл все сценарии в браузере (включая Offline и `simulate=error`), проверил записи в Neon и SQL миграций, сверил вёрстку с макетом попиксельно на 390×844 (≈ 98–99%).
 
 ## Что упрощено
 
@@ -49,9 +44,8 @@ pnpm dev                    # http://localhost:3000
 - `deviceId` — условный идентификатор без авторизации, подделать его может кто угодно. В реальном продукте покупку подтверждает квитанция App Store / Google Play и она привязана к аккаунту.
 - Нет автотестов. Состояние Loading с макетом попиксельно не сверялось: оно показывается доли секунды.
 
-## Что сделал бы за ещё 2 часа
+## Что сделал бы ещё
 
-- e2e-тесты сценариев на Playwright и визуальные регрессионные тесты против экспорта из Figma.
 - Идемпотентность покупки (ключ запроса) и rate limit на `POST /api/purchase`.
 - Разделить нативный мост на универсальный транспорт и события экрана; добавить обратный канал из приложения в webview.
 - Карточку тарифа сделать компонентом с вариантами в Figma; анимации смены состояний с учётом `prefers-reduced-motion`.
