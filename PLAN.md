@@ -126,12 +126,12 @@ drizzle/                     — миграции
   - описать схему Drizzle, применить миграцию;
   - положить `NUXT_DATABASE_URL` в `.env` и `.env.example`.
 - [x] 5. Server routes: offers, purchase, entitlement + валидация, типизированные ошибки, проверка через curl.
-- [ ] 6. Вёрстка:
+- [x] 6. Вёрстка:
   - `tokens.css` из Figma Variables;
   - компоненты;
   - состояния;
   - mobile-first на 360–430px.
-- [ ] 7. Pixel perfect:
+- [x] 7. Pixel perfect:
   - скриншот Playwright 390×844;
   - сравнение с экспортом фрейма из Figma (Framelink);
   - правки до совпадения.
