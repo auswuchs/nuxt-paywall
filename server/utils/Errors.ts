@@ -1,13 +1,8 @@
 import type { H3Event } from 'h3'
 import type { z } from 'zod'
 
-export function apiError(
-  statusCode: number,
-  code: ApiErrorCode,
-  message: string,
-  fields?: Record<string, string>,
-) {
-  const data: ApiErrorData = { code, fields }
+export function apiError(statusCode: number, code: ApiErrorCode, message: string) {
+  const data: ApiErrorData = { code }
 
   return createError({
     statusCode,
@@ -18,15 +13,9 @@ export function apiError(
 
 export function parseOrFail<T>(schema: z.ZodType<T>, input: unknown): T {
   const result = schema.safeParse(input)
-  if (result.success) return result.data
+  if (!result.success) throw apiError(400, 'validation_failed', 'Request validation failed')
 
-  const fields: Record<string, string> = {}
-  for (const issue of result.error.issues) {
-    const field = issue.path.join('.') || '_root'
-    fields[field] ??= issue.message
-  }
-
-  throw apiError(400, 'validation_failed', 'Request validation failed', fields)
+  return result.data
 }
 
 export async function readBodyOrFail<T>(event: H3Event, schema: z.ZodType<T>): Promise<T> {

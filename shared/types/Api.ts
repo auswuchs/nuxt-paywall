@@ -6,5 +6,4 @@ export type ApiErrorCode
 
 export interface ApiErrorData {
   code: ApiErrorCode
-  fields?: Record<string, string>
 }

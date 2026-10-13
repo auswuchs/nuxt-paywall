@@ -9,7 +9,7 @@ function createDb(url: string) {
   return drizzle(neon(url), { schema })
 }
 
-export function useDb() {
+export function getDb() {
   if (!instance) {
     const { databaseUrl } = useRuntimeConfig()
     if (!databaseUrl) throw apiError(500, 'internal', 'NUXT_DATABASE_URL is not set')

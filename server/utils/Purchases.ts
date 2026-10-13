@@ -17,7 +17,7 @@ export async function createPurchase(
   const offer = findOffer(offerId)
 
   // Обе даты считает БД по своим часам, чтобы срок был ровно createdAt + длительность.
-  const [purchase] = await useDb()
+  const [purchase] = await getDb()
     .insert(purchases)
     .values({
       offerId,
@@ -31,7 +31,7 @@ export async function createPurchase(
 }
 
 export async function findActiveEntitlement(deviceId: string): Promise<Entitlement | undefined> {
-  const [purchase] = await useDb()
+  const [purchase] = await getDb()
     .select()
     .from(purchases)
     .where(and(

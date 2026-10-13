@@ -56,11 +56,11 @@ server/
   api/offers.get.ts          — GET  /api/offers
   api/purchase.post.ts       — POST /api/purchase
   api/entitlement.get.ts     — GET  /api/entitlement?deviceId=… («Восстановить покупки»)
-  db/schema.ts               — схема Drizzle
-  utils/db.ts                — клиент Drizzle + Neon
-  utils/purchases.ts         — store: createPurchase, findActiveEntitlement (хендлеры тонкие)
-  utils/errors.ts            — apiError, parseOrFail, readBodyOrFail: единый формат ошибок
-  utils/offers.ts            — тарифы (константа на сервере)
+  db/Schema.ts               — схема Drizzle
+  utils/Database.ts          — getDb(): клиент Drizzle + Neon (ленивый синглтон)
+  utils/Purchases.ts         — store: createPurchase, findActiveEntitlement (хендлеры тонкие)
+  utils/Errors.ts            — apiError, parseOrFail, readBodyOrFail: единый формат ошибок
+  utils/Offers.ts            — тарифы (константа на сервере)
 shared/types/                — Offer, Entitlement, ApiErrorData: общие для app и server
 drizzle/                     — миграции
 ```
@@ -74,7 +74,7 @@ drizzle/                     — миграции
   - пишем строку в БД, срок считает сама БД (`now() + durationDays`); возвращаем `Entitlement` `{ purchaseId, offerId, purchasedAt, expiresAt }` со статусом 201;
   - на невалидные данные отвечаем 400.
 - `GET /api/entitlement?deviceId=…` → активная (не истёкшая) покупка устройства или 404 `entitlement_not_found`.
-- Ошибки всегда в одном формате: `{ statusCode, statusMessage, data: { code, fields? } }`; `code` типизирован (`ApiErrorCode`).
+- Ошибки всегда в одном формате: `{ statusCode, statusMessage, data: { code } }`; `code` типизирован (`ApiErrorCode`).
 
 ### БД
 
