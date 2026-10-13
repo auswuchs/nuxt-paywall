@@ -4,13 +4,15 @@ export interface Offer {
   id: OfferId
   title: string
   price: number
+  durationDays: number
   note: string
   discountPercent?: number
   recommended?: boolean
 }
 
-export interface PurchaseResult {
-  id: string
+export interface Entitlement {
+  purchaseId: string
   offerId: OfferId
-  createdAt: string
+  purchasedAt: string
+  expiresAt: string
 }

@@ -1,7 +1,8 @@
-export default defineEventHandler((event) => {
+export default defineEventHandler((event): readonly Offer[] => {
   // Lets reviewers see the error state on the deployed build without breaking anything.
   if (getQuery(event).simulate === 'error') {
-    throw createError({ statusCode: 503, statusMessage: 'Offers are temporarily unavailable' })
+    throw apiError(503, 'offers_unavailable', 'Offers are temporarily unavailable')
   }
+
   return offers
 })

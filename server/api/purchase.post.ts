@@ -1,13 +1,8 @@
-import { purchases } from '../db/schema'
+export default defineEventHandler(async (event): Promise<Entitlement> => {
+  const { offerId, deviceId } = await readBodyOrFail(event, purchaseBodySchema)
 
-export default defineEventHandler(async (event): Promise<PurchaseResult> => {
-  const { offerId, deviceId } = await readValidatedBody(event, purchaseBodySchema.parse)
-
-  const [purchase] = await useDb()
-    .insert(purchases)
-    .values({ offerId, deviceId, price: findOffer(offerId).price })
-    .returning()
+  const entitlement = await createPurchase(offerId, deviceId)
 
   setResponseStatus(event, 201)
-  return { id: purchase!.id, offerId, createdAt: purchase!.createdAt.toISOString() }
+  return entitlement
 })

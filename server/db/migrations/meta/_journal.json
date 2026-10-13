@@ -15,6 +15,13 @@
       "when": 1791910861578,
       "tag": "0001_yummy_logan",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1791912198997,
+      "tag": "0002_small_moon_knight",
+      "breakpoints": true
     }
   ]
 }

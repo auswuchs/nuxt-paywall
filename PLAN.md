@@ -55,10 +55,13 @@ app/
 server/
   api/offers.get.ts          — GET  /api/offers
   api/purchase.post.ts       — POST /api/purchase
-  api/purchases/latest.get.ts — GET /api/purchases/latest?deviceId=… («Восстановить покупки»)
+  api/entitlement.get.ts     — GET  /api/entitlement?deviceId=… («Восстановить покупки»)
   db/schema.ts               — схема Drizzle
   utils/db.ts                — клиент Drizzle + Neon
+  utils/purchases.ts         — store: createPurchase, findActiveEntitlement (хендлеры тонкие)
+  utils/errors.ts            — apiError, parseOrFail, readBodyOrFail: единый формат ошибок
   utils/offers.ts            — тарифы (константа на сервере)
+shared/types/                — Offer, Entitlement, ApiErrorData: общие для app и server
 drizzle/                     — миграции
 ```
 
@@ -68,9 +71,10 @@ drizzle/                     — миграции
 - `POST /api/purchase` с телом `{ offerId, deviceId }`:
   - валидируем тело (zod или ручная проверка);
   - проверяем, что `offerId` существует;
-  - пишем строку в БД и возвращаем `{ id, offerId, createdAt }`;
+  - пишем строку в БД, срок считает сама БД (`now() + durationDays`); возвращаем `Entitlement` `{ purchaseId, offerId, purchasedAt, expiresAt }` со статусом 201;
   - на невалидные данные отвечаем 400.
-- `GET /api/purchases/latest?deviceId=…` → последняя покупка устройства или 404.
+- `GET /api/entitlement?deviceId=…` → активная (не истёкшая) покупка устройства или 404 `entitlement_not_found`.
+- Ошибки всегда в одном формате: `{ statusCode, statusMessage, data: { code, fields? } }`; `code` типизирован (`ApiErrorCode`).
 
 ### БД
 
@@ -83,6 +87,9 @@ drizzle/                     — миграции
 | `price` | integer, not null — снимок цены на момент покупки |
 | `device_id` | text, not null |
 | `created_at` | timestamptz, default now() |
+| `expires_at` | timestamptz, not null — `created_at` + срок тарифа |
+
+Индекс `(device_id, expires_at)` — под запрос активной подписки.
 
 Тарифы держим константой на сервере, а не в БД. Их два, и они не меняются; таблица `offers` — кандидат на «следующий шаг».
 
@@ -118,7 +125,7 @@ drizzle/                     — миграции
   - создать Neon-проект;
   - описать схему Drizzle, применить миграцию;
   - положить `NUXT_DATABASE_URL` в `.env` и `.env.example`.
-- [x] 5. Server routes: offers, purchase, latest + валидация, проверка через curl.
+- [x] 5. Server routes: offers, purchase, entitlement + валидация, типизированные ошибки, проверка через curl.
 - [ ] 6. Вёрстка:
   - `tokens.css` из Figma Variables;
   - компоненты;
