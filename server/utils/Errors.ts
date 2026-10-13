@@ -5,14 +5,14 @@ export function apiError(
   statusCode: number,
   code: ApiErrorCode,
   message: string,
-  fields?: Record<string, string>
+  fields?: Record<string, string>,
 ) {
   const data: ApiErrorData = { code, fields }
 
   return createError({
     statusCode,
     statusMessage: message,
-    data
+    data,
   })
 }
 
@@ -33,8 +33,7 @@ export async function readBodyOrFail<T>(event: H3Event, schema: z.ZodType<T>): P
   let body: unknown
   try {
     body = await readBody(event)
-  }
-  catch {
+  } catch {
     throw apiError(400, 'validation_failed', 'Malformed JSON body')
   }
 

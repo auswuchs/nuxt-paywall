@@ -6,15 +6,15 @@ export const offers: readonly Offer[] = [
     durationDays: 365,
     note: '≈ 99 ₽ в месяц',
     discountPercent: 50,
-    recommended: true
+    recommended: true,
   },
   {
     id: 'month',
     title: 'Месяц',
     price: 199,
     durationDays: 30,
-    note: 'Отмена в любой момент'
-  }
+    note: 'Отмена в любой момент',
+  },
 ]
 
 export const offerIds = offers.map((offer) => offer.id) as OfferId[]

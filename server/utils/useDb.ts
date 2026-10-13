@@ -1,6 +1,7 @@
 import { neon } from '@neondatabase/serverless'
 import { drizzle } from 'drizzle-orm/neon-http'
-import * as schema from '../db/schema'
+
+import * as schema from '~~/server/db/Schema'
 
 let instance: ReturnType<typeof createDb> | undefined
 

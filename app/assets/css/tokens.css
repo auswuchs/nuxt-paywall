@@ -17,14 +17,12 @@
   --color-green: #16a34a;
   --color-green-soft: #e6f8ec;
   --color-overlay-white: rgb(255 255 255 / 40%);
-
   --radius-sm: 8px;
   --radius-md: 14px;
   --radius-lg: 16px;
   --radius-xl: 20px;
   --radius-2xl: 28px;
   --radius-full: 999px;
-
   --space-2: 2px;
   --space-4: 4px;
   --space-8: 8px;
@@ -32,7 +30,6 @@
   --space-16: 16px;
   --space-20: 20px;
   --space-24: 24px;
-
   --font-text: 'Nunito', system-ui, sans-serif;
   --font-icon: 'Inter', system-ui, sans-serif;
 }

@@ -1,16 +1,19 @@
 import { and, desc, eq, gt, sql } from 'drizzle-orm'
-import { purchases, type Purchase } from '../db/schema'
+
+import { type Purchase, purchases } from '~~/server/db/Schema'
 
 function toEntitlement(purchase: Purchase): Entitlement {
   return {
     purchaseId: purchase.id,
     offerId: purchase.offerId as OfferId,
     purchasedAt: purchase.createdAt.toISOString(),
-    expiresAt: purchase.expiresAt.toISOString()
+    expiresAt: purchase.expiresAt.toISOString(),
   }
 }
 
-export async function createPurchase(offerId: OfferId, deviceId: string): Promise<Entitlement> {
+export async function createPurchase(
+  offerId: OfferId,
+  deviceId: string): Promise<Entitlement> {
   const offer = findOffer(offerId)
 
   // Both timestamps come from the DB clock so expiry is exactly createdAt + duration.
@@ -20,7 +23,7 @@ export async function createPurchase(offerId: OfferId, deviceId: string): Promis
       offerId,
       deviceId,
       price: offer.price,
-      expiresAt: sql`now() + make_interval(days => ${offer.durationDays})`
+      expiresAt: sql`now() + make_interval(days => ${offer.durationDays})`,
     })
     .returning()
 
@@ -33,7 +36,7 @@ export async function findActiveEntitlement(deviceId: string): Promise<Entitleme
     .from(purchases)
     .where(and(
       eq(purchases.deviceId, deviceId),
-      gt(purchases.expiresAt, sql`now()`)
+      gt(purchases.expiresAt, sql`now()`),
     ))
     .orderBy(desc(purchases.expiresAt))
     .limit(1)
